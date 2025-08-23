@@ -24,6 +24,6 @@ spec:
         image: nyanner/golang-app-image:local
         imagePullPolicy: Always
         ports:
-        - containerPort: 8081
+        - containerPort: 8080
           name: http
           protocol: TCP
