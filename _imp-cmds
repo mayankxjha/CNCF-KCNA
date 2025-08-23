@@ -1,0 +1,6 @@
+kubectl run -it --rm --restart=Never busybox --image=busybox sh
+kubectl port-forward deployments/go-app 8080:8080 --address 0.0.0.0
+mk start --driver=docker --kubernetes-version=v1.33.1 minikube start --ports=30007:30007
+kubectl expose deploy go-app --port=9000 --target-port=8080
+kubectl scale deploy go-app --replicas 4
+kubectl autoscale deploy go-app --min 2 --max 5 --cpu-percent 50

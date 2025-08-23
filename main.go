@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, Go Server!")
+	fmt.Fprintf(w, "Hello, Go Server!\n")
+	fmt.Fprintf(w, "env var is: %s", os.Getenv("VAR_1"))
+	fmt.Fprintf(w, "secret var is: %s", os.Getenv("VAR_2"))
 }
 
 func main() {

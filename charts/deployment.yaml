@@ -21,9 +21,42 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: nyanner/golang-app-image:local
+        image: nyanner/golang-app-image:local.4
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
           name: http
           protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: vars-for-app
+        - secretRef:
+            name: secret-basic-auth 
+        volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+        - name: foo
+          mountPath: "/etc/foo"
+          readOnly: true
+        - mountPath: "/tmp/pv-data"
+          name: pv-mounteddata
+      volumes:
+      # You set volumes at the Pod level, then mount them into containers inside that Pod
+      - name: config
+        configMap:
+          # Provide the name of the ConfigMap you want to mount.
+          name: vars-for-app
+          # An array of keys from the ConfigMap to create as files
+          items:
+          - key: "game.properties"
+            path: "game.properties"
+          - key: "user-interface.properties"
+            path: "user-interface.properties"
+      - name: foo
+        secret:
+          secretName: secret-basic-auth
+          optional: true
+      - name: pv-mounteddata
+        persistentVolumeClaim:
+          claimName: app-pvc
