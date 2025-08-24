@@ -10,7 +10,7 @@ spec:
   - from:
     - namespaceSelector:
         matchLabels:
-          kubernetes.io/metadata.name: wind
+          kubernetes.io/metadata.name: water
     ports:
     - protocol: TCP
       port: 80

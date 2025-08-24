@@ -4,3 +4,4 @@ mk start --driver=docker --kubernetes-version=v1.33.1 minikube start --ports=300
 kubectl expose deploy go-app --port=9000 --target-port=8080
 kubectl scale deploy go-app --replicas 4
 kubectl autoscale deploy go-app --min 2 --max 5 --cpu-percent 50
+784f2d309d27f8ca485d703dbf1838eb35e426b3 - jW834PO8DV8l
